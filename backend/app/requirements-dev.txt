@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+sqlalchemy[asyncio]
+alembic
+psycopg2-binary
+python-jose
+asyncpg
+python-dotenv
+pytest-asyncio
