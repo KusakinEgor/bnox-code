@@ -1,0 +1,17 @@
+import uuid
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import mapped_column, Mapped, relationship
+from sqlalchemy import (
+    String, Text, DateTime, JSON, Enum, Integer, ForeignKey,
+    Text, Boolean
+)
+from datetime import datetime
+from typing import Optional
+import enum
+
+def uuid_pk() -> Mapped[uuid.UUID]:
+    return mapped_column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4
+    )
