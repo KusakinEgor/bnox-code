@@ -4,7 +4,7 @@ import uuid
 from datetime import datetime
 from typing import Optional
 from sqlalchemy import (
-    String, Integer, ForeignKey, Boolean, DateTime, JSON, Text, Enum
+    String, DateTime, Enum
 )
 from sqlalchemy.orm import (
     Mapped, mapped_column, relationship
@@ -26,6 +26,7 @@ class User(Base):
         default=uuid.uuid4
     )
     username: Mapped[str] = mapped_column(String(50), unique=True, nullable=False)
+    hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)
     email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
     avatar_url: Mapped[Optional[str]] = mapped_column(String(500))
     auth_provider: Mapped[AuthProvider] = mapped_column(Enum(AuthProvider), nullable=False)
