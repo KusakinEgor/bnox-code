@@ -49,3 +49,8 @@ class User(Base):
         back_populates="user",
         uselist=False
     )
+    snippets: Mapped[list["Snippet"]] = relationship(
+        "Snippet",
+        back_populates="owner",
+        cascade="all, delete-orphan"
+    )

@@ -4,6 +4,7 @@ from .activity import Activity, ActivityType
 from .social import FriendshipStatus, Friendship
 from .shared_project import SharedProject
 from .editor_settings import EditorSettings
+from .snippets import Snippet
 
 __all__ = [
     "User",
@@ -15,4 +16,5 @@ __all__ = [
     "FriendshipStatus",
     "SharedProject",
     "EditorSettings",
+    "Snippet",
 ]
