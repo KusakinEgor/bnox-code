@@ -1,15 +1,95 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { checkAPI } from '../api/api';
 
 export default function Hero() {
+  const [responseData, setResponseData] = useState(null);
+
+  const handleLogin = async () => {
+    const data = await checkAPI();
+    setResponseData(data);
+  };
+
   return (
-    <section style={{ padding: '80px 0', textAlign: 'center', backgroundColor: '#4f46e5', color: 'white' }}>
-      <h1 style={{ fontSize: '48px', marginBottom: '20px' }}>Welcome to MySite</h1>
-      <p style={{ fontSize: '20px', maxWidth: '600px', margin: '0 auto 30px' }}>
-        Build beautiful interfaces quickly with React + Vite.
-      </p>
-      <button style={{ padding: '12px 24px', fontSize: '16px', backgroundColor: 'white', color: '#4f46e5', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>
-        Get Started
-      </button>
+    <section
+      style={{
+        position: "relative",
+        padding: "140px 20px",
+        textAlign: "center",
+        backgroundColor: "#0f1117",
+        color: "white",
+        overflow: "hidden",
+      }}
+    >
+      {/* Фон-плашка */}
+      <div
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "600px",
+          height: "600px",
+          background: "radial-gradient(circle at center, rgba(37, 99, 235, 0.4), transparent 70%)",
+          filter: "blur(100px)",
+          zIndex: 0,
+        }}
+      ></div>
+
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <h1
+          style={{
+            fontSize: "56px",
+            fontWeight: "bold",
+            marginBottom: "20px",
+          }}
+        >
+          Build the Future with Our Platform
+        </h1>
+        <p
+          style={{
+            fontSize: "20px",
+            maxWidth: "700px",
+            margin: "0 auto 40px",
+            color: "#9ca3af",
+          }}
+        >
+          The most reliable infrastructure for your AI, apps, and business.
+        </p>
+        <button
+          onClick={handleLogin}
+          style={{
+            padding: "14px 32px",
+            fontSize: "16px",
+            backgroundColor: "#2563eb",
+            color: "white",
+            border: "none",
+            borderRadius: "8px",
+            cursor: "pointer",
+            transition: "all 0.3s ease",
+          }}
+          onMouseOver={(e) => (e.target.style.backgroundColor = "#1e40af")}
+          onMouseOut={(e) => (e.target.style.backgroundColor = "#2563eb")}
+        >
+          Get Started
+        </button>
+
+        {responseData && (
+          <div
+            style={{
+              marginTop: "40px",
+              textAlign: "left",
+              maxWidth: "600px",
+              marginInline: "auto",
+            }}
+          >
+            {Object.entries(responseData).map(([key, value]) => (
+              <p key={key}>
+                <strong>{key}:</strong> {value}
+              </p>
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   );
 }
