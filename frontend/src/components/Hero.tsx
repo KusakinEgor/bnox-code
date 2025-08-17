@@ -3,14 +3,27 @@ import { checkAPI } from '../api/api';
 
 export default function Hero() {
   const [responseData, setResponseData] = useState(null);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   const handleLogin = async () => {
     const data = await checkAPI();
     setResponseData(data);
   };
 
+  const handleMouseMove = (e) => {
+    const { clientX, clientY, currentTarget } = e;
+    const { width, height, left, top } = currentTarget.getBoundingClientRect();
+
+    // координаты относительно центра блока
+    const x = ((clientX - left) / width - 0.5) * 60; 
+    const y = ((clientY - top) / height - 0.5) * 60;
+
+    setOffset({ x, y });
+  };
+
   return (
     <section
+      onMouseMove={handleMouseMove}
       style={{
         position: "relative",
         padding: "140px 20px",
@@ -26,12 +39,14 @@ export default function Hero() {
           position: "absolute",
           top: "50%",
           left: "50%",
-          transform: "translate(-50%, -50%)",
+          transform: `translate(calc(-50% + ${offset.x}px), calc(-50% + ${offset.y}px))`,
           width: "600px",
           height: "600px",
-          background: "radial-gradient(circle at center, rgba(37, 99, 235, 0.4), transparent 70%)",
+          background:
+            "radial-gradient(circle at center, rgba(37, 99, 235, 0.4), transparent 70%)",
           filter: "blur(100px)",
           zIndex: 0,
+          transition: "transform 0.1s linear", // плавность
         }}
       ></div>
 
