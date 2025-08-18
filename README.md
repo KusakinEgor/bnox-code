@@ -1,6 +1,6 @@
 # 🌐 Web IDE + AI Assistant
 
-![Banner](https://user-images.githubusercontent.com/yourusername/banner.png)
+![Banner](https://github.com/KusakinEgor/bnox-code/blob/main/pictures/home.PNG)
 
 **Web IDE + AI Assistant** — это интерактивная среда разработки прямо в браузере, где можно писать и запускать **JavaScript** и **Python**, а также получать помощь от встроенного **AI-ассистента**.
 
