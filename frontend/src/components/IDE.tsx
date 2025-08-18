@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { python } from "@codemirror/lang-python";
+import { User } from "lucide-react";
 
 export default function IDE() {
   const [tab, setTab] = useState<"js" | "python">("js");
@@ -36,7 +37,10 @@ export default function IDE() {
     setTimeout(() => {
       setAiMessages((prev) => [
         ...prev,
-        { role: "assistant", text: `Привет! Я твой AI-ассистент. Пока я могу только имитировать ответы. Ты написал: "${userMsg.text}"` },
+        {
+          role: "assistant",
+          text: `Привет! Я твой AI-ассистент. Пока я могу только имитировать ответы. Ты написал: "${userMsg.text}"`,
+        },
       ]);
     }, 1000);
   };
@@ -86,28 +90,55 @@ export default function IDE() {
             </p>
           </div>
 
-          <button
-            onClick={runCode}
-            style={{
-              padding: "10px 20px",
-              background: "linear-gradient(90deg, #2563eb, #1e40af)",
-              borderRadius: "8px",
-              color: "white",
-              cursor: "pointer",
-              border: "none",
-              fontWeight: "bold",
-              transition: "all 0.3s ease",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
-            }}
-            onMouseOver={(e) => {
-              (e.target as HTMLButtonElement).style.transform = "scale(1.05)";
-            }}
-            onMouseOut={(e) => {
-              (e.target as HTMLButtonElement).style.transform = "scale(1)";
-            }}
-          >
-            Run
-          </button>
+          {/* Правая часть панели */}
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <button
+              onClick={runCode}
+              style={{
+                padding: "10px 20px",
+                background: "linear-gradient(90deg, #2563eb, #1e40af)",
+                borderRadius: "8px",
+                color: "white",
+                cursor: "pointer",
+                border: "none",
+                fontWeight: "bold",
+                transition: "all 0.3s ease",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
+              }}
+              onMouseOver={(e) => {
+                (e.target as HTMLButtonElement).style.transform = "scale(1.05)";
+              }}
+              onMouseOut={(e) => {
+                (e.target as HTMLButtonElement).style.transform = "scale(1)";
+              }}
+            >
+              Run
+            </button>
+
+            {/* Иконка профиля */}
+            <div
+              onClick={() => (window.location.href = "/profile")}
+              style={{
+                width: "40px",
+                height: "40px",
+                borderRadius: "50%",
+                backgroundColor: "#2a2c36",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+              }}
+              onMouseOver={(e) => {
+                (e.currentTarget as HTMLDivElement).style.backgroundColor = "#374151";
+              }}
+              onMouseOut={(e) => {
+                (e.currentTarget as HTMLDivElement).style.backgroundColor = "#2a2c36";
+              }}
+            >
+              <User size={20} color="white" />
+            </div>
+          </div>
         </div>
 
         {/* Вкладки */}
@@ -124,9 +155,7 @@ export default function IDE() {
                 fontWeight: tab === t ? "bold" : "normal",
                 transition: "all 0.3s ease",
                 boxShadow:
-                  tab === t
-                    ? "inset 0 -3px 0 #2563eb"
-                    : "inset 0 -3px 0 transparent",
+                  tab === t ? "inset 0 -3px 0 #2563eb" : "inset 0 -3px 0 transparent",
               }}
             >
               {t.toUpperCase()}
