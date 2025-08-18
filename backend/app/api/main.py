@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.v1.routes.auth.auth import router as auth_router
 from app.api.v1.routes.users.user import router as user_router
 from app.api.v1.routes.code.snippets import router as code_router
+from app.api.v1.routes.start.run_code import router as run_router
 
 from app.api.config import CORS_ORIGINS
 
@@ -20,6 +21,7 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(user_router)
 app.include_router(code_router)
+app.include_router(run_router)
 
 @app.get("/")
 async def root():

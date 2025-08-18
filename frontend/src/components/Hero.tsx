@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
-import { checkAPI } from '../api/api';
 
 export default function Hero() {
-  const [responseData, setResponseData] = useState(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-
-  const handleLogin = async () => {
-    const data = await checkAPI();
-    setResponseData(data);
-  };
 
   const handleMouseMove = (e) => {
     const { clientX, clientY, currentTarget } = e;
@@ -71,7 +64,6 @@ export default function Hero() {
           The most reliable infrastructure for your AI, apps, and business.
         </p>
         <button
-          onClick={handleLogin}
           style={{
             padding: "14px 32px",
             fontSize: "16px",
@@ -87,23 +79,6 @@ export default function Hero() {
         >
           Get Started
         </button>
-
-        {responseData && (
-          <div
-            style={{
-              marginTop: "40px",
-              textAlign: "left",
-              maxWidth: "600px",
-              marginInline: "auto",
-            }}
-          >
-            {Object.entries(responseData).map(([key, value]) => (
-              <p key={key}>
-                <strong>{key}:</strong> {value}
-              </p>
-            ))}
-          </div>
-        )}
       </div>
     </section>
   );

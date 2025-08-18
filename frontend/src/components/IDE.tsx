@@ -3,6 +3,7 @@ import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { python } from "@codemirror/lang-python";
 import { User } from "lucide-react";
+import { runPythonCode } from "../api/api";
 
 export default function IDE() {
   const [tab, setTab] = useState<"js" | "python">("js");
@@ -11,19 +12,26 @@ export default function IDE() {
   const [aiMessages, setAiMessages] = useState<{ role: string; text: string }[]>([]);
   const [aiInput, setAiInput] = useState("");
 
-  const runCode = () => {
+  const runCode = async () => {
     if (tab === "js") {
-      try {
-        if (/print\s*\(/.test(code.js)) {
-          throw new Error("❌ Ошибка: print() не существует в JavaScript!");
+        try {
+            if (/print\s*\(/.test(code.js)) {
+                throw new Error("❌ Ошибка: print() не существует в JavaScript!");
+            }
+            const result = eval(code.js);
+            setOutput(String(result));
+        } catch (error) {
+            setOutput(String(error));
         }
-        const result = eval(code.js);
-        setOutput(String(result));
-      } catch (err) {
-        setOutput(String(err));
-      }
     } else {
-      setOutput("⚠ Python execution via backend later:\n" + code.python);
+        setOutput("⏳ Выполняется...");
+        try {
+            const result = await runPythonCode(code.python);
+            setOutput(result?.stderr || result?.stdout || "⚠ Нет вывода");
+        } catch (error) {
+            console.error(error);
+            setOutput("❌ Ошибка при выполнении кода на сервере");
+        }
     }
   };
 

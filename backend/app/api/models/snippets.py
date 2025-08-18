@@ -32,3 +32,7 @@ class Snippet(Base):
         default=datetime.utcnow,
         onupdate=datetime.utcnow
     )
+    owner: Mapped["User"] = relationship (
+        "User",
+        back_populates="snippets"
+    )
