@@ -6,6 +6,7 @@ import Body from "./components/Body";
 import Footer from "./components/Footer";
 import Auth from "./components/Auth";
 import IDE from "./components/IDE";
+import Profile from "./components/Profile";
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         />
         <Route path="/auth" element={<Auth />} />
         <Route path="/ide" element={<IDE />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>
   );

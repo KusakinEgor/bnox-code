@@ -129,7 +129,7 @@ export default function Auth() {
           }}
         >
           <a
-            href="https://accounts.google.com"
+            href="http://localhost:8000/login/google"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -147,7 +147,7 @@ export default function Auth() {
           </a>
 
           <a
-            href="https://github.com/login"
+            href="http://localhost:8000/login/github"
             target="_blank"
             rel="noopener noreferrer"
             style={{

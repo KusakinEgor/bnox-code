@@ -4,6 +4,8 @@ import { javascript } from "@codemirror/lang-javascript";
 import { python } from "@codemirror/lang-python";
 import { User } from "lucide-react";
 import { runPythonCode } from "../api/api";
+import { runJScript } from "../api/api";
+import { Link } from "react-router-dom";
 
 export default function IDE() {
   const [tab, setTab] = useState<"js" | "python">("js");
@@ -14,15 +16,14 @@ export default function IDE() {
 
   const runCode = async () => {
     if (tab === "js") {
+        setOutput("⏳ Выполняется...");
         try {
-            if (/print\s*\(/.test(code.js)) {
-                throw new Error("❌ Ошибка: print() не существует в JavaScript!");
-            }
-            const result = eval(code.js);
-            setOutput(String(result));
+            const result = await runJScript(code.js);
+            setOutput(result.stderr || result.stdout || "⚠ Нет вывода");
         } catch (error) {
-            setOutput(String(error));
-        }
+            console.error(error);
+            setOutput("❌ Ошибка при выполнении кода на сервере");
+        }   
     } else {
         setOutput("⏳ Выполняется...");
         try {
@@ -144,7 +145,9 @@ export default function IDE() {
                 (e.currentTarget as HTMLDivElement).style.backgroundColor = "#2a2c36";
               }}
             >
-              <User size={20} color="white" />
+                <Link to={"/profile"}>
+                    <User size={20} color="white" />
+                </Link>
             </div>
           </div>
         </div>

@@ -5,7 +5,17 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 export const runPythonCode = async (code: string) => {
   try {
     const res = await axios.post(`${API_URL}/run/code`, { code });
-    return res.data; // { stdout, stderr }
+    return res.data;
+  } catch (err) {
+    console.error(err);
+    return { stdout: "", stderr: "Error contacting server" };
+  }
+};
+
+export const runJScript = async (code: string) => {
+  try {
+    const res = await axios.post(`${API_URL}/run/script`, { code });
+    return res.data;
   } catch (err) {
     console.error(err);
     return { stdout: "", stderr: "Error contacting server" };
