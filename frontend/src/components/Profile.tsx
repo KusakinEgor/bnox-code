@@ -1,10 +1,25 @@
 import React, { useState } from "react";
 import { User } from "lucide-react";
 
-const activity = Array(30).fill(0); // пока пустые плитки
-
 export default function Profile() {
   const [tooltip, setTooltip] = useState<{ text: string; x: number; y: number } | null>(null);
+
+  // Заглушка пользователя
+  const user = {
+    name: "Иван Петров",
+    email: "ivan@example.com",
+  };
+
+  const days = 42;
+  const today = new Date();
+  const activity = Array.from({ length: days }, (_, i) => {
+    const date = new Date();
+    date.setDate(today.getDate() - (days - 1 - i));
+    return {
+      date: date.toDateString(),
+      coded: Math.random() > 0.5, // тут потом заменишь на реальную логику
+    };
+  });
 
   const handleMouseOver = (e: React.MouseEvent<HTMLDivElement>, text: string) => {
     setTooltip({ text, x: e.clientX + 10, y: e.clientY + 10 });
@@ -14,7 +29,8 @@ export default function Profile() {
   return (
     <div
       style={{
-        minHeight: "100vh",
+        height: "100vh",
+        overflow: "hidden",
         background: "linear-gradient(135deg, #0f1117, #1f1f2e)",
         color: "white",
         fontFamily: "monospace",
@@ -22,7 +38,6 @@ export default function Profile() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "40px",
         gap: "40px",
       }}
     >
@@ -69,7 +84,7 @@ export default function Profile() {
             animation: "glow 3s ease-in-out infinite alternate",
           }}
         >
-          John Doe
+          {user.name}
         </h2>
 
         {/* Кнопка Edit Profile */}
@@ -95,37 +110,34 @@ export default function Profile() {
           Edit Profile
         </button>
 
-        <p style={{ color: "#9ca3af", margin: "4px 0 0" }}>john@example.com</p>
+        <p style={{ color: "#9ca3af", margin: "4px 0 0" }}>{user.email}</p>
 
         {/* Активность */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(7, 20px)",
+            gridTemplateColumns: "repeat(7, 20px)", // 7 дней в строке
             gap: "4px",
             marginTop: "20px",
           }}
         >
-          {activity.map((_, idx) => {
-            const didCode = Math.random() > 0.5; // рандом для демонстрации
-            return (
-              <div
-                key={idx}
-                style={{
-                  width: "20px",
-                  height: "20px",
-                  backgroundColor: "#2a2c36",
-                  borderRadius: "4px",
-                  transition: "all 0.3s ease",
-                  cursor: "pointer",
-                }}
-                onMouseOver={(e) =>
-                  handleMouseOver(e, didCode ? "You coded today!" : "No activity")
-                }
-                onMouseOut={handleMouseOut}
-              />
-            );
-          })}
+          {activity.map((day, idx) => (
+            <div
+              key={idx}
+              style={{
+                width: "20px",
+                height: "20px",
+                borderRadius: "4px",
+                backgroundColor: day.coded ? "#2563eb" : "#2a2c36",
+                transition: "all 0.3s ease",
+                cursor: "pointer",
+              }}
+              onMouseOver={(e) =>
+                handleMouseOver(e, `${day.date}: ${day.coded ? "Кодил" : "Не кодил"}`)
+              }
+              onMouseOut={handleMouseOut}
+            />
+          ))}
         </div>
 
         {/* Tooltip */}
