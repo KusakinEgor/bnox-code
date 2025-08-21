@@ -41,3 +41,13 @@ export const loginUser = async (email: string, password: string) => {
     return { error: "Server error" };
   }
 };
+
+export const sendMessageToAI = async (message: string) => {
+    try {
+        const request = await axios.post(`${API_URL}/chat`, { message });
+        return request.data;
+    } catch (err: any) {
+        console.error(err);
+        return {error: "Error contacting AI server"};
+    }
+}

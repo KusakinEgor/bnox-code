@@ -5,6 +5,7 @@ import { python } from "@codemirror/lang-python";
 import { User } from "lucide-react";
 import { runPythonCode } from "../api/api";
 import { runJScript } from "../api/api";
+import { sendMessageToAI } from "../api/api";
 import { Link } from "react-router-dom";
 
 export default function IDE() {
@@ -36,22 +37,28 @@ export default function IDE() {
     }
   };
 
-  const sendAiMessage = () => {
+  const sendAiMessage = async () => {
     if (!aiInput.trim()) return;
-    const userMsg = { role: "user", text: aiInput };
+
+    const userMsg = {role: "user", text: aiInput};
     setAiMessages([...aiMessages, userMsg]);
     setAiInput("");
 
-    // mock ответ ассистента через 1 секунду
-    setTimeout(() => {
-      setAiMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          text: `Привет! Я твой AI-ассистент. Пока я могу только имитировать ответы. Ты написал: "${userMsg.text}"`,
-        },
-      ]);
-    }, 1000);
+    try {
+        const response = await sendMessageToAI(userMsg.text);
+        const assistantMsg = {
+            role: "assistant",
+            text: response?.choices?.[0]?.message?.content || "Нет ответа от AI",
+        };
+
+        setAiMessages((prev) => [...prev, assistantMsg]);
+    } catch (error) {
+        console.error(error);
+        setAiMessages((prev) => [
+            ...prev,
+            {role: "assistant", text: "Ошибка при обращении к AI"},
+        ]);
+    }
   };
 
   return (

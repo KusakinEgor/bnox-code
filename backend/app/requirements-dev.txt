@@ -8,3 +8,4 @@ asyncpg
 python-dotenv
 pytest-asyncio
 httpx
+requests
