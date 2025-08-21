@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends, Request, Response
 from fastapi.responses import RedirectResponse
 import httpx
 import os
@@ -22,7 +22,7 @@ async def login_github():
     return RedirectResponse(url)
 
 @router.get("/ide")
-async def github_callback(code: str, current_user: User = Depends(get_current_user)):
+async def github_callback(code: str, response: Response):
     async with httpx.AsyncClient() as client:
         token_resp = await client.post(
             "https://github.com/login/oauth/access_token",
@@ -44,5 +44,13 @@ async def github_callback(code: str, current_user: User = Depends(get_current_us
         )
 
         user_data = user_resp.json()
+
+        response.set_cookie(
+            key="access_token",
+            value=access_token,
+            httponly=True,
+            samesite="lax",
+            secure=False,
+        )
 
         return {"user": user_data}

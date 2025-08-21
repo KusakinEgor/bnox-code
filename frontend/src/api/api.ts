@@ -35,7 +35,7 @@ export const registerUser = async (email: string, username: string, password: st
 export const loginUser = async (email: string, password: string) => {
   try {
     const res = await axios.post(`${API_URL}/auth/login`, { email, password });
-    return res.data; // { message: "Login successful" }
+    return res.data;
   } catch (err: any) {
     if (err.response) return { error: err.response.data.detail };
     return { error: "Server error" };
@@ -50,4 +50,14 @@ export const sendMessageToAI = async (message: string) => {
         console.error(err);
         return {error: "Error contacting AI server"};
     }
-}
+};
+
+export const getCurrentUser = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/users/current`, { withCredentials: true });
+      return res.data;
+    } catch (err: any) {
+      if (err.response) return { error: err.response.data.detail };
+      return { error: "Server error" };
+    }
+};

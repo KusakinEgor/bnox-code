@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { User } from "lucide-react";
+import { getCurrentUser } from "../api/api";
 
 export default function Profile() {
   const [tooltip, setTooltip] = useState<{ text: string; x: number; y: number } | null>(null);
+  const [user, setUser] = useState<{ name: string; email: string } | null>(null);
 
-  // Заглушка пользователя
-  const user = {
-    name: "Иван Петров",
-    email: "ivan@example.com",
-  };
+  useEffect(() => {
+    const fetchUser = async () => {
+        const data = await getCurrentUser();
+        if (!data.error) setUser(data.user);
+    };
+    fetchUser();
+  }, []);
 
   const days = 42;
   const today = new Date();
@@ -17,7 +21,7 @@ export default function Profile() {
     date.setDate(today.getDate() - (days - 1 - i));
     return {
       date: date.toDateString(),
-      coded: Math.random() > 0.5, // тут потом заменишь на реальную логику
+      coded: Math.random() > 0.5,
     };
   });
 
@@ -41,7 +45,6 @@ export default function Profile() {
         gap: "40px",
       }}
     >
-      {/* Карточка профиля */}
       <div
         style={{
           width: "400px",
@@ -84,10 +87,9 @@ export default function Profile() {
             animation: "glow 3s ease-in-out infinite alternate",
           }}
         >
-          {user.name}
+          {user ? user.name : "Загрузка..."}
         </h2>
 
-        {/* Кнопка Edit Profile */}
         <button
           style={{
             marginTop: "8px",
@@ -110,13 +112,15 @@ export default function Profile() {
           Edit Profile
         </button>
 
-        <p style={{ color: "#9ca3af", margin: "4px 0 0" }}>{user.email}</p>
+        <p style={{ color: "#9ca3af", margin: "4px 0 0" }}>
+          {user ? user.email : ""}
+        </p>
 
         {/* Активность */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(7, 20px)", // 7 дней в строке
+            gridTemplateColumns: "repeat(7, 20px)",
             gap: "4px",
             marginTop: "20px",
           }}
@@ -140,7 +144,6 @@ export default function Profile() {
           ))}
         </div>
 
-        {/* Tooltip */}
         {tooltip && (
           <div
             style={{
@@ -161,7 +164,6 @@ export default function Profile() {
         )}
       </div>
 
-      {/* Анимации */}
       <style>{`
         @keyframes glow {
           0% { text-shadow: 0 0 5px #2563eb, 0 0 10px #60a5fa; }

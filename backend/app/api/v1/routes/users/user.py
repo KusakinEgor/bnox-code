@@ -1,7 +1,8 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from uuid import UUID
+import httpx
 
 from app.api.db.database import get_db
 from app.api.core.security import get_current_user
@@ -48,3 +49,19 @@ async def get_user_by_id(
             detail="User not found"
         )
     return user
+
+@router.get("/current")
+async def current_user(request: Request):
+    token = request.cookies.get("access_token")
+
+    if not token:
+        return {"error": "Not authenticated"}
+    
+    async with httpx.AsyncClient() as client:
+        user_asnwer = await client.get(
+            "https://api.github.com/user",
+            headers={"Authorization": f"token {token}"},
+        )
+
+        user_data = user_asnwer.json()
+        return {"user": user_data}
