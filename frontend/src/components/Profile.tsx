@@ -8,8 +8,8 @@ export default function Profile() {
 
   useEffect(() => {
     const fetchUser = async () => {
-        const data = await getCurrentUser();
-        if (!data.error) setUser(data.user);
+      const data = await getCurrentUser();
+      if (!data.error) setUser(data); // теперь data содержит { name, email }
     };
     fetchUser();
   }, []);
@@ -60,6 +60,7 @@ export default function Profile() {
           position: "relative",
         }}
       >
+        {/* Аватар */}
         <div
           style={{
             width: "120px",
@@ -76,6 +77,7 @@ export default function Profile() {
           <User size={60} color="white" />
         </div>
 
+        {/* Имя пользователя */}
         <h2
           style={{
             margin: 0,
@@ -90,6 +92,7 @@ export default function Profile() {
           {user ? user.name : "Загрузка..."}
         </h2>
 
+        {/* Кнопка редактирования */}
         <button
           style={{
             marginTop: "8px",
@@ -112,8 +115,9 @@ export default function Profile() {
           Edit Profile
         </button>
 
+        {/* Email пользователя */}
         <p style={{ color: "#9ca3af", margin: "4px 0 0" }}>
-          {user ? user.email : ""}
+          {user ? user.email : "Загрузка..."}
         </p>
 
         {/* Активность */}
@@ -144,6 +148,7 @@ export default function Profile() {
           ))}
         </div>
 
+        {/* Tooltip */}
         {tooltip && (
           <div
             style={{

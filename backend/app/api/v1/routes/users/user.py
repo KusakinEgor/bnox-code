@@ -35,6 +35,14 @@ async def update_my_profile(
     await db.refresh(current_user)
     return current_user
 
+@router.get("/current")
+async def get_current_user_profile(db: AsyncSession = Depends(get_db)):
+    result = await db.execute(select(User))
+    user = result.scalars().first()
+    if not user:
+        return {"error": "No users in DB"}
+    return {"name": user.username, "email": user.email}
+
 @router.get("/{user_id}", response_model=UserOut)
 async def get_user_by_id(
     user_id: UUID,
@@ -49,19 +57,4 @@ async def get_user_by_id(
             detail="User not found"
         )
     return user
-
-@router.get("/current")
-async def current_user(request: Request):
-    token = request.cookies.get("access_token")
-
-    if not token:
-        return {"error": "Not authenticated"}
     
-    async with httpx.AsyncClient() as client:
-        user_asnwer = await client.get(
-            "https://api.github.com/user",
-            headers={"Authorization": f"token {token}"},
-        )
-
-        user_data = user_asnwer.json()
-        return {"user": user_data}
