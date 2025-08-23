@@ -1,8 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Header() {
-  const navigate = useNavigate(); // хук для программной навигации
+  const navigate = useNavigate();
 
   return (
     <header
@@ -24,19 +24,42 @@ export default function Header() {
           alignItems: "center",
         }}
       >
-        <h1 style={{ fontSize: "20px", fontWeight: "bold", color: "white", margin: 0 }}>
+        <h1
+          style={{
+            fontSize: "20px",
+            fontWeight: "bold",
+            color: "white",
+            margin: 0,
+            cursor: "pointer",
+          }}
+          onClick={() => navigate("/")}
+        >
           Bnox<span style={{ color: "#3b82f6" }}>Code</span>
         </h1>
 
         <nav style={{ display: "flex", gap: "24px" }}>
-          <a href="#" style={{ color: "#9ca3af", textDecoration: "none", fontSize: "16px" }}>Home</a>
-          <a href="#" style={{ color: "#9ca3af", textDecoration: "none", fontSize: "16px" }}>Features</a>
-          <a href="#" style={{ color: "#9ca3af", textDecoration: "none", fontSize: "16px" }}>Contact</a>
+          <Link
+            to="/"
+            style={{ color: "#9ca3af", textDecoration: "none", fontSize: "16px" }}
+          >
+            Home
+          </Link>
+          <Link
+            to="/features"
+            style={{ color: "#9ca3af", textDecoration: "none", fontSize: "16px" }}
+          >
+            Features
+          </Link>
+          <Link
+            to="/contact"
+            style={{ color: "#9ca3af", textDecoration: "none", fontSize: "16px" }}
+          >
+            Contact
+          </Link>
         </nav>
 
-        {/* Кнопка Sign in */}
         <button
-          onClick={() => navigate("/auth")} // ← сюда добавили навигацию
+          onClick={() => navigate("/auth")}
           style={{
             padding: "10px 20px",
             fontSize: "15px",

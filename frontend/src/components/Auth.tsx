@@ -31,11 +31,11 @@ export default function Auth() {
       style={{
         backgroundColor: "#0f1117",
         color: "white",
-        minHeight: "100vh",
+        height: "100vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        padding: "20px",
+        overflow: "hidden",
       }}
     >
       <div

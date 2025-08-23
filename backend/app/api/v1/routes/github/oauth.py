@@ -4,8 +4,6 @@ import httpx
 import os
 
 from app.api.config import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
-from app.api.models import User
-from app.api.core.security import get_current_user
 
 router = APIRouter(
     prefix="/login",

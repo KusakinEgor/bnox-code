@@ -9,7 +9,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchUser = async () => {
       const data = await getCurrentUser();
-      if (!data.error) setUser(data); // теперь data содержит { name, email }
+      if (!data.error) setUser(data);
     };
     fetchUser();
   }, []);

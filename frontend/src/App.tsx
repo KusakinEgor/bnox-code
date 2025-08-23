@@ -7,6 +7,8 @@ import Footer from "./components/Footer";
 import Auth from "./components/Auth";
 import IDE from "./components/IDE";
 import Profile from "./components/Profile";
+import Features from "./components/Features";
+import Contact from "./components/Contact";
 
 export default function App() {
   return (
@@ -23,6 +25,8 @@ export default function App() {
             </>
           }
         />
+        <Route path="/features" element={<Features />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/ide" element={<IDE />} />
         <Route path="/profile" element={<Profile />} />

@@ -3,11 +3,10 @@ import React, { useState } from 'react';
 export default function Hero() {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: any) => {
     const { clientX, clientY, currentTarget } = e;
     const { width, height, left, top } = currentTarget.getBoundingClientRect();
 
-    // координаты относительно центра блока
     const x = ((clientX - left) / width - 0.5) * 60; 
     const y = ((clientY - top) / height - 0.5) * 60;
 
@@ -39,7 +38,7 @@ export default function Hero() {
             "radial-gradient(circle at center, rgba(37, 99, 235, 0.4), transparent 70%)",
           filter: "blur(100px)",
           zIndex: 0,
-          transition: "transform 0.1s linear", // плавность
+          transition: "transform 0.1s linear",
         }}
       ></div>
 

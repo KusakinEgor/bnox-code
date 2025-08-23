@@ -61,3 +61,22 @@ export const getCurrentUser = async () => {
       return { error: "Server error" };
     }
 };
+
+export const contact = async (name: string, email: string, message: string) => {
+    try {
+        const res = await axios.post(
+            `${API_URL}/contact`,
+            new URLSearchParams({name, email, message}),
+            {
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+            }
+        );
+        return res.data;
+    } catch (err: any) {
+        console.error(err);
+        if (err.response) return { error: err.response.data.detail };
+        return { error: "Server error" };
+    }
+}

@@ -10,7 +10,7 @@ export default function Footer() {
         </p>
 
         <div style={{ display: "flex", gap: "20px", marginTop: "10px" }}>
-          <a href="#" style={{ color: "#aaa", textDecoration: "none" }}>About</a>
+          <a href="https://github.com/KusakinEgor/bnox-code" style={{ color: "#aaa", textDecoration: "none" }}>About</a>
           <a href="#" style={{ color: "#aaa", textDecoration: "none" }}>Blog</a>
           <a href="#" style={{ color: "#aaa", textDecoration: "none" }}>Contact</a>
         </div>

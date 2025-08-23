@@ -10,3 +10,4 @@ pytest-asyncio
 httpx
 requests
 itsdangerous
+python-multipart

@@ -21,7 +21,7 @@ async def create_new_snippet(
 ):
     return await create_snippet(current_user.id, snippet_data, db)
 
-@router.get("/{snippet_id}", response_model=list[SnippetOut])
+@router.get("/", response_model=list[SnippetOut])
 async def list_my_snippets(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db)
