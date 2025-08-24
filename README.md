@@ -61,28 +61,29 @@
 ## 📸 Скриншоты
 
 <p align="center">
-  <img src="pictures/auth.PNG" width="800"/>
+  <img src="pictures/auth.PNG" width="800" style="border: 4px solid white; border-radius: 8px;"/>
   <br><em>Авторизация через GitHub OAuth2</em>
 </p>
 
 <p align="center">
-  <img src="pictures/ide.PNG" width="800"/>
+  <img src="pictures/ide.PNG" width="800" style="border: 4px solid white; border-radius: 8px;"/>
   <br><em>Онлайн-редактор с подсветкой синтаксиса и запуском кода</em>
 </p>
 
 <p align="center">
-  <img src="pictures/profile.PNG" width="800"/>
+  <img src="pictures/profile.PNG" width="800" style="border: 4px solid white; border-radius: 8px;"/>
   <br><em>Профиль пользователя с историей кода и настройками</em>
 </p>
 
 <p align="center">
-  <img src="pictures/features.PNG" width="800"/>
+  <img src="pictures/features.PNG" width="800" style="border: 4px solid white; border-radius: 8px;"/>
   <br><em>Раздел «Функциональность» — демонстрация всех ключевых возможностей веб-IDE и AI-ассистента</em>
 </p>
 
 <p align="center">
-  <img src="pictures/contact.PNG" width="800"/>
+  <img src="pictures/contact.PNG" width="800" style="border: 4px solid white; border-radius: 8px;"/>
   <br><em>Раздел «Контакты» — пользователи могут отправлять сообщения или обратную связь через веб-форму</em>
 </p>
+
 
 ## 📂 Архитектура проекта
