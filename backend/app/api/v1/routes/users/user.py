@@ -1,8 +1,7 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Request
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from uuid import UUID
-import httpx
 
 from app.api.db.database import get_db
 from app.api.core.security import get_current_user

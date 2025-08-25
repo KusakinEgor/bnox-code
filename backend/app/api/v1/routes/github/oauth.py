@@ -1,7 +1,6 @@
 from fastapi import APIRouter
 from fastapi.responses import RedirectResponse
 import httpx
-import os
 
 from app.api.config import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
 
