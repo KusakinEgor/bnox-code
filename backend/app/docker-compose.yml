@@ -12,8 +12,6 @@ services:
       DATABASE_URL: postgres://myuser:mypassword@db:5432/mydb
     depends_on:
       - db
-      - js_sandbox
-      - py_sandbox
 
   db:
     image: postgres:17
@@ -26,22 +24,6 @@ services:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
-  
-  js_sandbox:
-    build: ./backend/app/api/services/sandbox/javascript
-    volumes:
-      - ./backend/app/api/services/sandbox/javascript:/app
-    ports:
-      - "3000:3000"
-    command: ["node", "server.js"]
-
-  py_sandbox:
-    build: ./backend/app/api/services/sandbox/python
-    volumes:
-      - ./backend/app/api/services/sandbox/python:/app
-    ports:
-      - "5000:5000"
-    commad: ["python", "sandbox_main.py"]
 
 volumes:
   db_data:
