@@ -11,3 +11,5 @@ httpx
 requests
 itsdangerous
 python-multipart
+passlib
+pydantic[email]
