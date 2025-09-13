@@ -211,11 +211,23 @@ backend/
 - **Структура папок**:
 ```text
 frontend/
-├─ src/
-│  ├─ components/            # UI-компоненты 🧩
-│  ├─ pages/                 # страницы приложения 📄
-│  └─ services/              # API вызовы ⚡️
-└─ vite.config.js             # конфигурация сборки ⚙️
+├─ node_modules/  # зависимости 📦
+├─ public/  # статичные файлы (favicon и т.п.) 🌐
+├─ src/  # исходники приложения 💻
+│  ├─ api/  # запросы к backend ⚡️
+│  ├─ assets/  # картинки, шрифты, стили 🎨
+│  ├─ components/  # переиспользуемые UI-компоненты 🧩
+│  ├─ pages/  # страницы приложения 📄
+│  ├─ types/ (@types)  # глобальные типы TypeScript 📑
+│  ├─ App.tsx  # корневой компонент 🏠
+│  ├─ main.tsx  # точка входа 🚀
+│  ├─ index.css  # глобальные стили 🎭
+│  └─ env.d.ts  # декларации окружения 🔑
+├─ index.html  # html-шаблон 📜
+├─ package.json  # зависимости и скрипты 📦
+├─ vite.config.ts  # конфиг Vite ⚙️
+├─ tsconfig.json  # базовая конфигурация TS 🛠️
+└─ eslint.config.js  # правила линтинга ✅
 ```
 
 ### 🔗 Интеграции и сервисы
