@@ -180,7 +180,7 @@
 
 ---
 
-### 🖥 Backend
+### 🖥️ Backend
 - **FastAPI** — основной веб-фреймворк для создания REST API 🛠  
 - **SQLAlchemy + Alembic** — работа с PostgreSQL и управление миграциями 🗄  
 - **Pydantic** — валидация и сериализация данных ✅  
